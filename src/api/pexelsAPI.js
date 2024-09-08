@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
-console.log(API_KEY);
+
 
 export const searchImages = async (query, page = 1) => {
   try {
