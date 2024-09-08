@@ -24,7 +24,23 @@ Vega EditMaster is a dynamic image editing application that allows users to fetc
 ## File Structure
 
 ```
-src/ ├── components/ │ ├── Search.jsx # Component for searching for new images │ ├── Modal.jsx # Component for opening the canvas window on screen │ ├── Canvas/ # Folder for Fabric.js files used in the canvas │ │ ├── BackGroundImage.js # Configuration for adding background image in canvas │ │ ├── Canvas.jsx # Component for the canvas where edits are made │ │ ├── Shapes.js # Configuration for adding shapes in canvas │ │ ├── TextUtils.js # Configuration for adding text to the canvas ├── api/ │ └── pexelsApi.js # Configuration of the API used to fetch images ├── assets/ │ └── Editmaster.png # Logo or asset for the application ├── index.css # Global CSS styles ├── App.jsx # Main application component that sets up routing and layout └── main.jsx # Entry point for the React application, including routing and Redux provider setup
+src/
+├── components/
+│ ├── Search.jsx # Component for searching for new images
+│ ├── Modal.jsx # Component for opening the canvas window on screen
+│ ├── Canvas/ # Folder for Fabric.js files used in the canvas
+│ │ ├── BackGroundImage.js # Configuration for adding background image in canvas
+│ │ ├── Canvas.jsx # Component for the canvas where edits are made
+│ │ ├── Shapes.js # Configuration for adding shapes in canvas
+│ │ ├── TextUtils.js # Configuration for adding text to the canvas
+├── api/
+│ └── pexelsApi.js # Configuration of the API used to fetch images
+├── assets/
+│ └── Editmaster.png # Logo or asset for the application
+├── index.css # Global CSS styles
+├── App.jsx # Main application component that sets up routing and layout
+└── main.jsx # Entry point for the React application, including routing and Redux provider setup
+
 ```
 
 ## Setup and Running Instructions
