@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Assuming this CSS is in index.css or App.css */
+body {
+    background-color: rgb(41, 2, 41);
+    /* Set the background color to purple */
+    background-image: url('/assets/Grid.svg');
+    /* Path to your SVG file */
+    background-repeat: no-repeat;
+    /* Prevent repeating the background image */
+    background-size: cover;
+    /* Cover the entire background */
+    background-position: center;
+    /* Center the background image */
+}
