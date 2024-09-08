@@ -47,11 +47,11 @@ src/
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/TheChiragKaushik/Notes-App.git
+   git clone https://github.com/TheChiragKaushik/Vega-EditMaster
 
 2. **Navigate to the Project Directory**
    ```bash
-   cd note-taking-app
+   cd Vega-EditMaster
 
 3. **Install Dependencies**
    ```bash
