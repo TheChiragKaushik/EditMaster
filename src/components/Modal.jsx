@@ -8,7 +8,7 @@ const Modal = ({ onClose, children }) => {
           onClick={onClose}
           className="absolute top-4 right-4 text-2xl font-bold text-gray-600 hover:text-gray-900"
         >
-          &times; {/* Close (X) Icon */}
+          &times; 
         </button>
         {children}
       </div>

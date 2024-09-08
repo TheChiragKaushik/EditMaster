@@ -4,7 +4,7 @@ import Canvas from "./Canvas/Canvas.jsx";
 import Modal from "./Modal.jsx";
 
 const Search = () => {
-  const [query, setQuery] = useState(" ");
+  const [query, setQuery] = useState("");
   const [images, setImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [page, setPage] = useState(1);
@@ -32,7 +32,7 @@ const Search = () => {
   }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Fix typo here
+    e.preventDefault();
     setPage(1);
     setLoading(true);
     try {
@@ -68,6 +68,12 @@ const Search = () => {
     setIsModalOpen(false);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e); // Call handleSubmit on Enter key press
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 p-6 flex flex-col items-center justify-center">
       <div className="w-full max-w-lg flex items-center mb-8">
@@ -75,6 +81,7 @@ const Search = () => {
           type="text"
           value={query}
           onChange={handleChange}
+          onKeyDown={handleKeyDown} // Add onKeyDown event handler
           placeholder="Search images..."
           className="w-full p-3 text-lg bg-gray-800 border border-gray-700 text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-gray-500"
         />

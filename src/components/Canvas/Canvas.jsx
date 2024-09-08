@@ -8,6 +8,7 @@ import {
 } from "./Shapes.js";
 import { addText, bringTextToFront } from "./TextUtils.js";
 import { loadBackgroundImage } from "./BackGroundImage.js";
+import { logObjectAttributes } from "./CanvasUtils.js"; // Import the logging function
 
 const Canvas = ({ imageURL }) => {
   const canvasRef = useRef(null);
@@ -16,7 +17,7 @@ const Canvas = ({ imageURL }) => {
   const textRef = useRef(null);
   const [isObjectSelected, setIsObjectSelected] = useState(false);
   const [color, setColor] = useState("black");
-  const [drawingMode, setDrawingMode] = useState(false); // Track if drawing mode is enabled
+  const [drawingMode, setDrawingMode] = useState(false);
 
   useEffect(() => {
     const canvasInstance = new fabric.Canvas(canvasRef.current, {
@@ -35,9 +36,12 @@ const Canvas = ({ imageURL }) => {
       }
     };
 
-    canvasInstance.on("object:added", () =>
-      bringTextToFront(canvasInstance, textRef)
-    );
+    const handleObjectAdded = (e) => {
+      logObjectAttributes(e.target); // Log the attributes of the newly added object
+      bringTextToFront(canvasInstance, textRef);
+    };
+
+    canvasInstance.on("object:added", handleObjectAdded);
     canvasInstance.on("mouse:dblclick", handleDblClick);
 
     const handleSelection = () => {
@@ -49,7 +53,7 @@ const Canvas = ({ imageURL }) => {
     canvasInstance.on("selection:cleared", () => setIsObjectSelected(false));
 
     return () => {
-      canvasInstance.off("object:added");
+      canvasInstance.off("object:added", handleObjectAdded);
       canvasInstance.off("mouse:dblclick", handleDblClick);
       canvasInstance.off("selection:created", handleSelection);
       canvasInstance.off("selection:updated", handleSelection);
@@ -67,14 +71,14 @@ const Canvas = ({ imageURL }) => {
     if (canvas) {
       canvas.freeDrawingBrush.color = color;
     }
-  }, [color, canvas]); // Update the brush color whenever the color changes
+  }, [color, canvas]);
 
   const addDrawing = () => {
     if (!canvas) return;
-    canvas.freeDrawingBrush.color = color; // Ensure the current color is applied
+    canvas.freeDrawingBrush.color = color;
     canvas.freeDrawingBrush.width = 10;
     canvas.isDrawingMode = !canvas.isDrawingMode;
-    setDrawingMode(canvas.isDrawingMode); // Update drawing mode state
+    setDrawingMode(canvas.isDrawingMode);
   };
 
   const addShape = (shape) => {
@@ -115,8 +119,11 @@ const Canvas = ({ imageURL }) => {
       </div>
       <div className="flex-1 p-4 space-y-4">
         <div className="grid grid-cols-2 gap-4">
-          <select onChange={(e) => setColor(e.target.value)}>
-            <option value="" disabled selected>
+          <select
+            value={color} 
+            onChange={(e) => setColor(e.target.value)}
+          >
+            <option value="" disabled>
               Select a color
             </option>
             <option value="red">Red</option>
@@ -184,20 +191,20 @@ const Canvas = ({ imageURL }) => {
             className={`px-4 py-2 text-white rounded-lg shadow-md transition-transform transform hover:scale-105 ${
               isObjectSelected
                 ? "bg-gradient-to-r from-red-500 to-pink-600 hover:shadow-xl hover:bg-pink-700"
-                : "bg-gray-500 cursor-not-allowed"
+                : "bg-gradient-to-r from-gray-500 to-gray-700 cursor-not-allowed"
             }`}
             onClick={removeObject}
             disabled={!isObjectSelected}
           >
-            Remove
-          </button>
-          <button
-            className="px-4 py-2 bg-gradient-to-r from-teal-500 to-green-600 text-white rounded-lg shadow-md hover:shadow-xl hover:bg-green-700 transition-transform transform hover:scale-105"
-            onClick={downloadImage}
-          >
-            Download Image
+            Remove Object
           </button>
         </div>
+        <button
+          className="px-4 py-2 bg-gradient-to-r from-teal-500 to-green-600 text-white rounded-lg shadow-md hover:shadow-xl hover:bg-green-700 transition-transform transform hover:scale-105"
+          onClick={downloadImage}
+        >
+          Download Image
+        </button>
       </div>
     </div>
   );
